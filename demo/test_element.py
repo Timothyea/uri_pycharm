@@ -2,12 +2,12 @@
 # -*- conding:utf-8 -*-
 from time import sleep
 
-# 纯文本输入
+
 import autoit
 from selenium.webdriver import ActionChains
 from selenium.webdriver.common.keys import Keys
 
-
+# 纯文本输入
 def test_input(driver):
     # 打开网址
     driver.get("http://ui.yansl.com/#/input")
@@ -67,8 +67,10 @@ def test_slider(driver):
     sleep(2)
     actions = ActionChains(driver)
     # 模拟移动，抓住，按xxx移动，释放，运行以上操作
+    # 方法一
+    # actions.move_to_element(slider).click_and_hold(slider).move_by_offset(0,-200).release(slider).perform()
+    # 方法二
     actions.drag_and_drop_by_offset(slider,0,-200).perform()
-    actions.move_to_element(slider).click_and_hold(slider).move_by_offset(0,-200).release(slider).perform()
     sleep(2)
 
 # 时间
