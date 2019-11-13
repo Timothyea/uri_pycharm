@@ -74,7 +74,7 @@ def test_time(driver):
     tl.send_keys("15:15:00")
     sleep(2)
 
-# 文件
+# 选择文件上传
 def test_file(driver):
     driver.get("http://ui.yansl.com/#/upload")
     sleep(2)
