@@ -7,6 +7,7 @@ from selenium import webdriver
 
 @pytest.fixture(scope="session")
 def driver():
+    # 引入Chromedriver
     driver = webdriver.Chrome("../chrome_driver_v78/chromedriver.exe")
 
     sleep(1)
