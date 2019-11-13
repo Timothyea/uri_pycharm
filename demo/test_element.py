@@ -3,6 +3,7 @@
 from time import sleep
 
 # 纯文本输入
+import autoit
 from selenium.webdriver import ActionChains
 
 
@@ -80,6 +81,34 @@ def test_file(driver):
     sleep(2)
 
     file = driver.find_element_by_xpath("(//div[1]//input)[1]")
-    file.clear()# 清空
+    file.click()# 清空
     file.send_keys("C:\\Users\\guoya\\Desktop\\123.csv")
+    sleep(2)
+
+# 点击上传
+def test_file2(driver):
+    driver.get("http://ui.yansl.com/#/upload")
+    sleep(2)
+
+    file = driver.find_element_by_xpath("(//span[text()='点击上传'])[1]")
+    file.click()
+    sleep(2)
+    autoit.win_wait("打开", 10)
+    sleep(1)
+    # autoit.control_send("打开", "Edit1", os.path.abspath(file_path))
+    autoit.control_set_text("打开", "Edit1", "C:\\Users\\guoya\\Desktop\\123.csv")
+    sleep(2)
+    autoit.control_click("打开", "Button1")
+    sleep(2)
+
+# 点击提交,点击确定
+def test_alter(driver):
+    driver.get("http://192.168.1.128:8082/xuepl/demo.html")
+    sleep(2)
+
+    botton = driver.find_element_by_xpath("/html/body/table/tbody/tr[6]/td[2]/input")
+    botton.click()
+    sleep(2)
+    alert = driver.switch_to.alert
+    alert.accept()
     sleep(2)
