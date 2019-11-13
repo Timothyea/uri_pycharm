@@ -112,3 +112,4 @@ def test_alter(driver):
     alert = driver.switch_to.alert
     alert.accept()
     sleep(2)
+
