@@ -67,6 +67,7 @@ def test_slider(driver):
     sleep(2)
     actions = ActionChains(driver)
     # 模拟移动，抓住，按xxx移动，释放，运行以上操作
+    actions.drag_and_drop_by_offset(slider,0,-200).perform()
     actions.move_to_element(slider).click_and_hold(slider).move_by_offset(0,-200).release(slider).perform()
     sleep(2)
 
