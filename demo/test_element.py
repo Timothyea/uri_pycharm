@@ -12,10 +12,10 @@ from selenium.webdriver import ActionChains
 
 from selenium.webdriver.common.keys import Keys
 
-# 纯文本输入
+
 from selenium.webdriver.support.wait import WebDriverWait
 
-
+# 纯文本输入
 def test_input(driver):
     # 打开网址
     driver.get("http://ui.yansl.com/#/input")
@@ -66,6 +66,16 @@ def test_select(driver):
     option.click()
     sleep(2)
 
+# 级联选择器
+def test_cascader(driver):
+    driver.get("http://ui.yansl.com/#/cascader")
+    sleep(2)
+
+    cd = driver.find_element_by_xpath("//label[text()='click触发']/..//input")
+    cd.click()
+    sleep(2)
+
+    option = driver.find_element_by_xpath("(//span[text()='双皮奶'])[last()]")
 # 滑块
 def test_slider(driver):
     driver.get("http://ui.yansl.com/#/slider")
