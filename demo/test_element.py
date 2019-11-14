@@ -1,13 +1,21 @@
 #!/user/bin/env python
 # -*- conding:utf-8 -*-
+from telnetlib import EC
 from time import sleep
 
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC #定义了变量EC表示expected_conditions
 
 import autoit
 from selenium.webdriver import ActionChains
+
 from selenium.webdriver.common.keys import Keys
 
 # 纯文本输入
+from selenium.webdriver.support.wait import WebDriverWait
+
+
 def test_input(driver):
     # 打开网址
     driver.get("http://ui.yansl.com/#/input")
@@ -153,5 +161,47 @@ def test_alter2(driver):
         if driver.title.__contains__("京东"):
             break
 
+# 框架切换
+def test_iframe(driver):
+    driver.get("http://192.168.1.128:8082/xuepl1/frame/main.html")
+    sleep(2)
+    # 找框架xpath
+    frame = driver.find_element_by_xpath("//frame[@src='left.html']")
+    # 切换框架
+    driver.switch_to.frame(frame)
+    sleep(2)
+    # 按部分链接查找京东，点击
+    driver.find_element_by_partial_link_text("京东").click()
+
+    sleep(2)
+    # 退出当前frame
+    driver.switch_to.parent_frame()
+    # 回到初始页面
+    # driver.switch_to.default_content()
+    sleep(2)
+    iframe = driver.find_element_by_xpath("//frame[@name='right']")
+    # 切换框架
+    driver.switch_to.frame(iframe)
+    sleep(2)
+    inpu = driver.find_element_by_xpath("//input[@clstag='h|keycount|head|search_c']")
+    inpu.clear()
+    inpu.send_keys("手机")
+    sleep(2)
+
+    abc = driver.find_element_by_xpath("//button[@class='button']")
+    abc.click()
+    sleep(5)
 
 
+# 页面等待
+def test_wait(driver):
+    driver.get("http://ui.yansl.com/#/loading")
+    bt = driver.find_element_by_xpath("//span[contains(text(),'指令方式')]")
+    bt.click()
+    # 显式等待
+    WebDriverWait(driver, 5, 0.5).until(
+        EC.visibility_of_element_located((By.XPATH, '//tbody/tr[1]/td[2]/div'))
+    )
+    bg = driver.find_element_by_xpath("//tbody/tr[1]/td[2]/div")
+    print(bg.text)
+    sleep(2)
